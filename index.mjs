@@ -15,3 +15,19 @@ try {
 } catch (err) {
 	console.error(">>[error] MongoDB connection error:", err);
 }
+
+const bot = new Telegraf(process.env.TOKEN);
+const mutex = new Mutex();
+const stage = new Scenes.Stage();
+
+bot.use(session());
+bot.use(mediaGroup());
+bot.use(stage.middleware());
+
+bot.on('message', async (ctx) => {
+	ctx.reply("Hello!");
+});
+
+bot.launch().then(() => {
+	console.log(">>[log] Bot is running");})
+export default bot;
